@@ -1,0 +1,46 @@
+services:
+  # Laravel application (PHP-FPM)
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+    depends_on:
+      - db
+    networks:
+      - laravel_network
+
+  # MySQL Database
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: laravel
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_network
+
+  # PHPMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    depends_on:
+      - db
+    networks:
+      - laravel_network
+
+networks:
+  laravel_network:
+    driver: bridge
