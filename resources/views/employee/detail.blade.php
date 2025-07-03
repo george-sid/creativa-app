@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button class="btn btn-info btn-save" type="submit">{{__('Save')}}</button>
+            <button class="btn btn-info btn-save" type="submit">{{$employee?->id ? __('Save') : __('Create')}}</button>
         </div>
     </form>
 </div>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Clear previous errors
         form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-        form.querySelectorAll('.valid-feedback').forEach(el => el.innerHTML = '');
+        form.querySelectorAll('.invalid-feedback').forEach(el => el.innerHTML = '');
 
         fetch("{{ route('employee.store') }}", {
             method: 'POST',
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 if (responseData.errors) {
+                    // Add errors to fields with errors
                     Object.entries(responseData.errors).forEach(([key, messages]) => {
                         const input = form.querySelector(`[name="${key}"]`);
                         if (input) {
@@ -86,12 +87,23 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     });
+
+                    // Clear errors on inputs without errors
+                    form.querySelectorAll('input, select, textarea').forEach(input => {
+                        if (!responseData.errors.hasOwnProperty(input.name)) {
+                            input.classList.remove('is-invalid');
+                            const feedback = input.closest('div').querySelector('.invalid-feedback');
+                            if (feedback) {
+                                feedback.innerHTML = '';
+                            }
+                        }
+                    });
                 }
             } else {
-                alert("Saved successfully");
+                window.toastr.success('Employee named: ' + responseData.first_name + ' ' + responseData.last_name + ' successfully created');
                 setTimeout(() => {
                     window.location.href = '/employees/' + responseData.id;
-                }, 1000);
+                }, 3000);
             }
         })
         .catch(error => {
@@ -100,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 
 </script>
 
