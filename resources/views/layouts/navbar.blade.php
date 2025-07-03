@@ -20,12 +20,10 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image">
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <li class="user-header text-bg-primary">
-                        <img src="/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
                         <p> {{ Auth::user()->name }}<small>Member since Nov. 2023</small>
                         </p>
                     </li>
