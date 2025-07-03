@@ -47,12 +47,14 @@
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
-                                        <form action="#" method="POST" style="display:inline-block;">
+                                        <div class="flex">
+                                        <a href="{{ route('employee.update', ['id' => $employee->id]) }}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
+                                        <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" class="ml-3 delete-employee-form" data-id="{{ $employee->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this company?')">{{__('Delete')}}</button>
+                                            <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
                                         </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -64,20 +66,66 @@
     </div>
 
 </div>
-
-
 <script>
+    let datatable
     document.addEventListener('DOMContentLoaded', function () {
-        new DataTable('#companiesTable', {
+        datatable = new DataTable('#companiesTable', {
             responsive: true,
             paging: true,
             searching: true,
             ordering: true,
+            destroy:true,
             pageLength: 10,
             pagingType: 'numbers',
             language: {
                 url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/{{ app()->getLocale() === 'el' ? 'el' : 'en-GB' }}.json"
             }
+        });
+
+        document.querySelectorAll('.delete-employee-form').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                if (!confirm("{{ __('Delete this employee?') }}")) return;
+
+                const url = form.getAttribute('action');
+                const csrf = form.querySelector('input[name="_token"]').value;
+                const companyId = this.getAttribute('data-id');
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrf,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: companyId
+                    })
+                })
+                .then(async response => {
+                    const text = await response.text();
+                    if (!response.ok) throw new Error(text || 'Request failed');
+
+                    try {
+                        return JSON.parse(text);
+                    } catch {
+                        throw new Error('Invalid JSON response');
+                    }
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        toastr.success(data.message);
+                        const row = form.closest('tr');
+                        datatable.rows(row).remove().draw(false);
+                    } else {
+                        toastr.error(data.message || 'Something went wrong');
+                    }
+                })
+                .catch(error => {
+                    toastr.error("{{ __('Something went wrong. Contact with the administrator') }}");
+                });
+            });
         });
     });
 </script>

@@ -22,7 +22,8 @@ class Text extends Component
         public $type = 'text',
         public $title = null,
         public $value = null,
-        public $customClass = null
+        public $customClass = null,
+        public $required = null
     )
     {
         $this->id = Str::random(8);

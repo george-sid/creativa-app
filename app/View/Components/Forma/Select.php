@@ -24,7 +24,8 @@ class Select extends Component
         public $value = null,
         public $getValue = null,
         public $getLabel = null,
-        public $customClass = null
+        public $customClass = null,
+        public $required = null
     )
     {
         $this->id = Str::random(8);

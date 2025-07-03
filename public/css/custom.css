@@ -41,6 +41,10 @@ nav[aria-label="pagination"] {
     font-family: Arial, sans-serif;
 }
 
+.dt-search{
+    margin:10px 0px;
+}
+
 .dt-paging-button {
     background-color: #007bff;
     border: none;

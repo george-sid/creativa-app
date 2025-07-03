@@ -23,10 +23,10 @@
             <div class="row g-3">
                 <x-Forma.text name="id" type="hidden" :value="$employee?->id" />
                 <x-Forma.text sm="12" md="12" lg="6" name="first_name" :value="$employee?->first_name" 
-                    placeholder="{{__('Enter first name')}}" title="{{__('First name')}}"/>
+                    placeholder="{{__('Enter first name')}}" title="{{__('First name')}}" required/>
 
                 <x-Forma.text sm="12" md="12" lg="6" name="last_name" :value="$employee?->last_name" 
-                    placeholder="{{__('Enter last name')}}" title="{{__('Last name')}}"/>
+                    placeholder="{{__('Enter last name')}}" title="{{__('Last name')}}" required/>
 
                 <x-Forma.text sm="12" md="12" lg="6" name="email" :value="$employee?->email" 
                     placeholder="{{__('Enter email')}}" title="{{__('Email')}}" type="email"/>
@@ -100,7 +100,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             } else {
-                window.toastr.success('Employee named: ' + responseData.first_name + ' ' + responseData.last_name + ' successfully created');
+                window.toastr.success(
+                    '{{ __("Employee named: :first :last successfully created", ["first" => ":firstName", "last" => ":lastName"]) }}'
+                        .replace(':firstName', responseData.first_name)
+                        .replace(':lastName', responseData.last_name)
+                );
+
                 setTimeout(() => {
                     window.location.href = '/employees/' + responseData.id;
                 }, 3000);
@@ -108,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Unexpected error:', error);
-            alert('Something went wrong');
+            window.toastr.error('{{ __("Something went wrong. Contact with the administrator") }}');
         });
     });
 });

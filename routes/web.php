@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}',[EmployeeController::class,'update'])->name('employee.update');
         Route::prefix('/ajax')->group(function(){
             Route::post('/store', [EmployeeController::class, 'store'])->name('employee.store');
+            Route::post('/delete', [EmployeeController::class, 'destroy'])->name('employee.destroy');
         });
     });
 });
