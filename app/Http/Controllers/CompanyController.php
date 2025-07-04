@@ -6,6 +6,8 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCompanyRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\NewCompanyNotification;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
@@ -50,6 +52,8 @@ class CompanyController extends Controller
             $company->update($validated);
         } else {
             $company = Company::create($validated);
+            // Send email only for NEW companies
+            Mail::to(env('ADMIN_EMAIL'))->send(new NewCompanyNotification($company));  
         }
 
         return response()->json($company);

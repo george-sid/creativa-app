@@ -5,7 +5,10 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>{{__('Employees')}}</h1>
+                <div class="flex">
+                    <a href="{{route('employee.list')}}" class="btn btn-primary" style="margin-right:6px">{{__('Back')}}</a>
+                    <h1>{{__('Employee')}}</h1>
+                </div>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">

@@ -5,7 +5,10 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>{{__('Company')}}</h1>
+                <div class="flex">
+                    <a href="{{route('company.list')}}" class="btn btn-primary" style="margin-right:6px">{{__('Back')}}</a>
+                    <h1>{{__('Company')}}</h1>
+                </div>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -55,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
             data[key] = value;
         });
 
-        console.log(data)
         // Clear previous errors
         form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
         form.querySelectorAll('.invalid-feedback').forEach(el => el.innerHTML = '');

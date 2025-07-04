@@ -10,10 +10,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::post('/language', [HomeController::class, 'language'])->name('language');

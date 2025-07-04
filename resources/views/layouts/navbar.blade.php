@@ -24,11 +24,15 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <li class="user-header text-bg-primary">
-                        <p> {{ Auth::user()->name }}<small>Member since Nov. 2023</small>
-                        </p>
+                        <p> {{ Auth::user()->name }}</p>
                     </li>
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat float-end">{{__('Sign out')}}</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-default btn-flat float-end">
+                                {{ __('Sign out') }}
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </li>
