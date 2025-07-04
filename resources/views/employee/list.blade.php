@@ -48,12 +48,11 @@
                                     <td>{{ $employee->phone }}</td>
                                     <td>
                                         <div class="flex">
-                                        <a href="{{ route('employee.update', ['id' => $employee->id]) }}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
-                                        <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" class="ml-3 delete-employee-form" data-id="{{ $employee->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
-                                        </form>
+                                            <a href="{{ route('employee.update', ['id' => $employee->id]) }}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
+                                            <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" class="ml-3 delete-employee-form" data-id="{{ $employee->id }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

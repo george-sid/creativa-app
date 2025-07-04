@@ -18,15 +18,19 @@
 </section>
 
 <div class="card card-info card-outline mb-4 mx-4">
-    <form class="needs-validation" id="companyForm">
+    <form class="needs-validation" id="companyForm" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row g-3">
                 <x-Forma.text name="id" type="hidden" :value="$company?->id" />
+
                 <x-Forma.text sm="12" md="12" lg="6" name="name" :value="$company?->name" 
                     placeholder="{{__('Enter name')}}" title="{{__('Name')}}" required/>
 
                 <x-Forma.text sm="12" md="12" lg="6" name="email" :value="$company?->email" 
                     placeholder="{{__('Enter email')}}" title="{{__('Email')}}" type="email"/>
+
+                <x-Forma.text sm="12" md="12" lg="6" name="website" :value="$company?->website" 
+                    placeholder="{{__('Enter website')}}" title="{{__('Website')}}"/>
 
                 <x-Forma.fileUpload sm="12" md="12" lg="6" name="logo" placeholder="{{__('Upload logo')}}" 
                     title="{{__('Logo')}}"/>
@@ -51,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             data[key] = value;
         });
 
+        console.log(data)
         // Clear previous errors
         form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
         form.querySelectorAll('.invalid-feedback').forEach(el => el.innerHTML = '');
@@ -60,9 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: formData
         })
         .then(async response => {
             const responseData = await response.json();
@@ -99,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
 
                 setTimeout(() => {
-                    window.location.href = '/company/' + responseData.id;
+                    window.location.href = '/companies/' + responseData.id;
                 }, 3000);
             }
         })

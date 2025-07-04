@@ -32,6 +32,7 @@
                             <tr>
                                 <th>{{__('Name')}}</th>
                                 <th>{{__('Email')}}</th>
+                                <th>{{__('Webiste')}}</th>
                                 <th>{{__('Logo')}}</th>
                                 <th>{{__('Action')}}</th>
                             </tr>
@@ -41,15 +42,19 @@
                                 <tr>
                                     <td>{{ $company->name }}</td>
                                     <td>{{ $company->email }}</td>
-                                    <td>{{ $company->logo }}</td>
+                                    <td>{{ $company->webiste }}</td>
+                                    <td>
+                                        @if ($company->logo)
+                                            <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}" style="max-width: 100px; max-height: 100px;">
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="flex">
-                                        <a href="{{ route('company.update', ['id' => $company->id]) }}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
-                                        <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="ml-3 delete-company-form" data-id="{{ $company->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
-                                        </form>
+                                            <a href="{{ route('company.update', ['id' => $company->id]) }}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
+                                            <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="ml-3 delete-company-form" data-id="{{ $company->id }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -78,11 +83,11 @@
             }
         });
 
-        document.querySelectorAll('.delete-employee-form').forEach(function (form) {
+        document.querySelectorAll('.delete-company-form').forEach(function (form) {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                if (!confirm("{{ __('Delete this employee?') }}")) return;
+                if (!confirm("{{ __('Delete this company?') }}")) return;
 
                 const url = form.getAttribute('action');
                 const csrf = form.querySelector('input[name="_token"]').value;

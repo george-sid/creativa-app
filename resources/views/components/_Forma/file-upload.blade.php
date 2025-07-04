@@ -2,7 +2,8 @@
     <div class="form-group">
         <label for="{{$id}}">{{$title}}</label>
         <div class="input-group mb-3"> 
-            <input type="file" class="form-control file-upload-form" name="{{ $name }}" id="{{$id}}" {{$placeholder}}> 
+            <input type="file" class="form-control file-upload-form" name="{{ $name }}" id="{{$id}}" {{$placeholder}}>
+            <div class="invalid-feedback"></div> 
         </div>
     </div>
 </div>
