@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else {
                 window.toastr.success(
-                    '{{ __("Company named: :name successfully created", ["name" => ":name"]) }}'
+                    '{{ __("Company named: :name successfully saved", ["name" => ":name"]) }}'
                         .replace(':name', responseData.name)
                 );
 

@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else {
                 window.toastr.success(
-                    '{{ __("Employee named: :first :last successfully created", ["first" => ":firstName", "last" => ":lastName"]) }}'
+                    '{{ __("Employee named: :first :last successfully saved", ["first" => ":firstName", "last" => ":lastName"]) }}'
                         .replace(':firstName', responseData.first_name)
                         .replace(':lastName', responseData.last_name)
                 );
