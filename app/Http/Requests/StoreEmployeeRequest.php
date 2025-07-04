@@ -28,7 +28,7 @@ class StoreEmployeeRequest extends FormRequest
             'id'         => ['nullable', Rule::exists('employees', 'id')],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name'  => ['required', 'string', 'max:255'],
-            'company_id' => ['required', Rule::exists('companies', 'id')],
+            'company_id' => ['nullable', Rule::exists('companies', 'id')],
             'email'      => [
                 'nullable',
                 'email',

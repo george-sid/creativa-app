@@ -17,6 +17,8 @@ class HomeController extends Controller
 
     public function language(Request $request)
     {
+        $en="__('English')";
+        $el="__('Greek')";
         session()->put("locale",$request->locale);
         return redirect()->back();
     }

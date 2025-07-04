@@ -12,7 +12,7 @@
             <select name="locale" onchange="this.form.submit()">
                 @foreach(config('creativa.supported') as $key => $label)
                     <option value="{{ $key }}" {{ session('locale') == $key ? 'selected' : '' }}>
-                        {{ $label }}
+                        {{ __($label) }}
                     </option>
                 @endforeach
             </select>

@@ -52,8 +52,15 @@ class CompanyController extends Controller
             $company->update($validated);
         } else {
             $company = Company::create($validated);
-            // Send email only for NEW companies
-            Mail::to(env('ADMIN_EMAIL'))->send(new NewCompanyNotification($company));  
+            $mailDriver = config('mail.default');
+
+            if ($mailDriver && !in_array($mailDriver, ['log', 'null'])) {
+                try {
+                    Mail::to(env('ADMIN_EMAIL'))->send(new NewCompanyNotification($company));
+                } catch (\Exception $e) {
+                    \Log::error('Mail sending failed: ' . $e->getMessage());
+                }
+            }
         }
 
         return response()->json($company);

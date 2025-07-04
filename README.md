@@ -54,6 +54,10 @@ Run the database seeder
 
     php artisan db:seed
 
+To make the storage files (e.g., uploaded files) publicly accessible, run the following Artisan command to create a symbolic link from `public/storage` to `storage/app/public`:
+
+    php artisan storage:link
+
 If you'd like to start the local development server, you can run the following command
 
     php artisan serve
