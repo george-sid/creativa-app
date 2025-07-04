@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -27,6 +28,16 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/ajax')->group(function(){
             Route::post('/store', [EmployeeController::class, 'store'])->name('employee.store');
             Route::post('/delete', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+        });
+    });
+
+    Route::prefix('companies')->group(function(){
+        Route::get('/',[CompanyController::class,'index'])->name('company.list');
+        Route::get('/create',[CompanyController::class,'create'])->name('company.create');
+        Route::get('/{id}',[CompanyController::class,'update'])->name('company.update');
+        Route::prefix('/ajax')->group(function(){
+            Route::post('/store', [CompanyController::class, 'store'])->name('company.store');
+            Route::post('/delete', [CompanyController::class, 'destroy'])->name('company.destroy');
         });
     });
 });

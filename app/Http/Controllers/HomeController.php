@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('dashboard');
+        $employeesCount = Employee::count();
+        $companiesCount = Company::count();
+        return view('dashboard',compact('employeesCount','companiesCount'));
     }
 
     public function language(Request $request)

@@ -12,7 +12,7 @@
                         <i class="nav-icon bi bi-circle"></i>
                         <p>{{__('Employees')}}</p>
                     </a>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('company.list')}}" class="nav-link">
                         <i class="nav-icon bi bi-circle"></i>
                         <p>{{__('Company')}}</p>
                     </a>

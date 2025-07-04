@@ -13,15 +13,18 @@
 }
 .breadcrumb {
     display: -ms-flexbox;
-    display: flex
-;
+    display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: .75rem 1rem;
     margin-bottom: 1rem;
     list-style: none;
-    background-color: #e9ecef;
     border-radius: .25rem;
+}
+
+.file-upload-form{
+    border:1px solid #000 !important;
+    padding:10px !important;
 }
 
 .breadcrumb-item.active {
